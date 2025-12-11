@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}Work - Portfolio{% endblock %}
+
+{% block content %}
+<section class="py-20">
+    <div class="max-w-7xl mx-auto px-4">
+        <h1 class="text-4xl md:text-5xl font-bold mb-12 text-center">My Work</h1>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for project in projects %}
+            <div
+                class="group relative bg-white dark:bg-darklighter rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300">
+                <div class="aspect-video bg-gray-200 dark:bg-gray-800 overflow-hidden">
+                    {% if project.image %}
+                    <img src="{{ project.image.url }}" alt="{{ project.title }}"
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    {% else %}
+                    <div class="w-full h-full flex items-center justify-center text-gray-400">No Image</div>
+                    {% endif %}
+                </div>
+                <div class="p-6">
+                    <div class="flex flex-wrap gap-2 mb-3">
+                        {% for tag in project.tags.all %}
+                        <span class="text-xs font-semibold px-2 py-1 bg-gray-100 dark:bg-gray-700 rounded">{{ tag.name
+                            }}</span>
+                        {% endfor %}
+                    </div>
+                    <a href="{% url 'project_detail' project.slug %}">
+                        <h3 class="text-xl font-bold mb-2 hover:text-blue-500">{{ project.title }}</h3>
+                    </a>
+                    <p class="text-gray-600 dark:text-gray-400">{{ project.short_description }}</p>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-span-3 text-center py-20">
+                <p class="text-xl text-gray-500">No projects added yet.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}

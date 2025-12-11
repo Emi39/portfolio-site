@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="h-[80vh] flex items-center justify-center relative overflow-hidden">
+    <div
+        class="absolute inset-0 z-0 opacity-30 dark:opacity-20 bg-[url('https://grainy-gradients.vercel.app/noise.svg')]">
+    </div>
+    <div class="max-w-7xl mx-auto px-4 relative z-10 text-center">
+        <h1
+            class="text-5xl md:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 via-purple-500 to-teal-400 mb-6 animate-fade-in-up">
+            Hello, I'm {{ profile.name|default:"Developer" }}.
+        </h1>
+        <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-10 leading-relaxed">
+            {{ profile.bio_short|default:"Full Stack Developer | UI/UX Enthusiast" }}
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="{% url 'portfolio_list' %}"
+                class="px-8 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-full font-medium transition-all transform hover:scale-105 shadow-lg shadow-blue-500/30">
+                View My Work
+            </a>
+            <a href="{% url 'contact' %}"
+                class="px-8 py-3 border border-gray-300 dark:border-gray-600 hover:border-blue-500 dark:hover:border-blue-400 rounded-full font-medium transition-all hover:text-blue-500">
+                Contact Me
+            </a>
+        </div>
+    </div>
+</section>
+
+<section class="py-20 bg-white dark:bg-dark">
+    <div class="max-w-7xl mx-auto px-4">
+        <div class="flex justify-between items-end mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold">Featured Projects</h2>
+            <a href="{% url 'portfolio_list' %}" class="text-blue-500 hover:underline">View all &rarr;</a>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {% for project in projects %}
+            <div
+                class="group relative bg-gray-100 dark:bg-darklighter rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                <div class="aspect-video bg-gray-200 dark:bg-gray-800 overflow-hidden">
+                    {% if project.image %}
+                    <img src="{{ project.image.url }}" alt="{{ project.title }}"
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    {% else %}
+                    <div class="w-full h-full flex items-center justify-center text-gray-400">
+                        <span>No Image</span>
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="p-6">
+                    <div class="flex flex-wrap gap-2 mb-3">
+                        {% for tag in project.tags.all %}
+                        <span
+                            class="text-xs font-semibold px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-200 rounded">
+                            {{ tag.name }}
+                        </span>
+                        {% endfor %}
+                    </div>
+                    <a href="{% url 'project_detail' project.slug %}">
+                        <h3 class="text-xl font-bold mb-2 group-hover:text-blue-500 transition-colors">
+                            {{ project.title }}
+                            <span class="absolute inset-0"></span>
+                        </h3>
+                    </a>
+                    <p class="text-gray-600 dark:text-gray-400 line-clamp-2">{{ project.short_description }}</p>
+                </div>
+            </div>
+            {% empty %}
+            <p>No featured projects yet.</p>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+{% endblock %}
