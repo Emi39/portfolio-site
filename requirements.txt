@@ -1,4 +1,4 @@
-﻿asgiref==3.8.1
+asgiref==3.8.1
 dj-database-url==3.0.1
 Django==5.1.1
 django-cleanup==9.0.0
@@ -13,7 +13,5 @@ pytz==2024.2
 six==1.16.0
 sqlparse==0.5.1
 tzdata==2024.2
-Django==5.0.0  # or your version
 gunicorn==23.0.0
-# Add these if not present (for static files, common next issue):
 whitenoise==6.7.0
