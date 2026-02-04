@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-z3&zi8ww)#%5x3q#=s77)7fmo^$%zlgc2f!=yxa4q8b!656c_=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['pythonanywhere.com', 'www.pythonanywhere.com', '127.0.0.1', 'localhost', 'popovychvanja.pythonanywhere.com']
+ALLOWED_HOSTS = ['*.koyeb.app,localhost','pythonanywhere.com', 'www.pythonanywhere.com', '127.0.0.1', 'localhost', 'popovychvanja.pythonanywhere.com']
 
 CSRF_TRUSTED_ORIGINS = [
     'https://popovychvanja.pythonanywhere.com',
